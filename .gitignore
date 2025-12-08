@@ -1,11 +1,6 @@
-.htaccess
-css.php
-rpc/
-sites/site*/admin/
-sites/site*/private/
-sites/site*/public/admin/
-sites/site*/public/setup/
-sites/site*/public/theme/
-textpattern/
-HISTORY.txt
-README.txt
+# 忽略文件
+.DS_Store
+node_modules/
+*.log
+temp/
+.DS_Store
