@@ -70,19 +70,25 @@
         <!-- 数据来源说明 -->
         <li class="flex items-start">
             <i class="fas fa-database mt-1 mr-2 text-blue-400 text-xs"></i>
-            <span>累计扣除数据来源参考：登录个人所得税APP，①进入"收入纳税明细"，②选择最新年度1月工资薪金，③点击"查看税款计算"获取数据，④分别乘以12得到年度累计数据 (请注意各地封顶值!)                  
+            <span>累计扣除数据来源参考：登录个人所得税APP，①进入"收入纳税明细"，②选择最新年度1月工资薪金，③点击"查看税款计算"获取数据，④分别乘以12得到年度累计数据 (<span class="highlight">请注意各地封顶值!</span>)                  
             </span>
+        </li>
+        
+        <!-- 新增说明 -->
+        <li class="flex items-start">
+            <i class="fas fa-lightbulb mt-1 mr-2 text-blue-400 text-xs"></i>
+            <span>此工具根据需要提取的奖金总数进行一次性提取的建议，可以根据综合所得税率表临界值决定是否全部提取</span>
         </li>
         
         <!-- 版本信息 -->
         <li class="pt-2 mt-2 border-t border-blue-100 flex justify-between">
             <span class="text-xs text-gray-500 flex items-center">
                 <i class="fas fa-code-branch mr-1"></i>
-                <span>版本号：<span class="highlight">V1.3</span></span>
+                <span>版本号：<span class="highlight">V2.0</span></span>
             </span>
             <span class="text-xs text-gray-500 flex items-center">
                 <i class="far fa-calendar-alt mr-1"></i>
-                <span>更新日期：<span class="highlight">2025年4月30日</span></span>
+                <span>更新日期：<span class="highlight">2025年12月10日</span></span>
             </span>
             <span class="text-xs text-gray-500 flex items-center">
                 <i class="fas fa-user-tie mr-1"></i>
@@ -93,13 +99,23 @@
 </div>
         <!-- 输入表单 -->
         <div class="space-y-4">
-            <div>
-                <label for="totalIncome" class="block text-sm font-medium text-gray-700">
-                    <i class="fas fa-money-bill-wave mr-1 text-green-500"></i>全年总收入预估（元）
-                </label>
-                <p class="text-xs text-gray-500 mb-1">包括全年工资、津贴、奖金（含待提取的奖金），额外考虑调薪及奖金变化</p>
-                <input type="number" id="totalIncome" placeholder="例：300000" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="salaryAllowance" class="block text-sm font-medium text-gray-700">
+                        <i class="fas fa-money-bill-wave mr-1 text-green-500"></i>全年工资津贴预估（元）
+                    </label>
+                    <p class="text-xs text-gray-500 mb-1">包括全年工资、津贴，额外考虑调薪变化</p>
+                    <input type="number" id="salaryAllowance" placeholder="例：220000" 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="extractedBonus" class="block text-sm font-medium text-gray-700">
+                        <i class="fas fa-coins mr-1 text-yellow-500"></i>已经提取奖金（元）
+                    </label>
+                    <p class="text-xs text-gray-500 mb-1">本年度已提取的奖金金额</p>
+                    <input type="number" id="extractedBonus" placeholder="例：20000" value="0"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
             </div>
             <div>
                 <label for="totalBonus" class="block text-sm font-medium text-gray-700">
@@ -107,6 +123,14 @@
                 </label>
                 <input type="number" id="totalBonus" placeholder="例：80000" 
                     class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="totalIncome" class="block text-sm font-medium text-gray-700">
+                    <i class="fas fa-money-bill-alt mr-1 text-indigo-500"></i>全年总收入预估（元）
+                </label>
+                <p class="text-xs text-gray-500 mb-1">自动计算，等于全年工资津贴预估加上已提取奖金和待提取奖金总额</p>
+                <input type="number" id="totalIncome" placeholder="自动计算" readonly
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-100">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -298,6 +322,19 @@
         </div>
     </div>
     <script>
+        // 监听工资津贴、已提取奖金和待提取奖金输入，自动计算总收入
+        document.getElementById('salaryAllowance').addEventListener('input', updateTotalIncome);
+        document.getElementById('extractedBonus').addEventListener('input', updateTotalIncome);
+        document.getElementById('totalBonus').addEventListener('input', updateTotalIncome);
+        
+        function updateTotalIncome() {
+            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
+            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
+            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
+            const totalIncome = salaryAllowance + extractedBonus + totalBonus;
+            document.getElementById('totalIncome').value = totalIncome.toFixed(0);
+        }
+        
         // 新增：获取奖金对应的税率和速算扣除数（按全年金额计算）
         function getBonusTaxParams(bonus) {
             if (bonus <= 0) return { rate: 0, deduction: 0 };
@@ -324,17 +361,19 @@
         
         function calculateOptimalSplit() {
             // 获取输入值
-            const totalIncome = parseFloat(document.getElementById("totalIncome").value) || 0;
-            const totalBonus = parseFloat(document.getElementById("totalBonus").value) || 0;
-            const basicDeduction = parseFloat(document.getElementById("basicDeduction").value) || 0;
-            const specialDeduction = parseFloat(document.getElementById("specialDeduction").value) || 0;
-            const additionalDeduction = parseFloat(document.getElementById("additionalDeduction").value) || 0;
-            const otherDeduction = parseFloat(document.getElementById("otherDeduction").value) || 0;
+            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
+            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
+            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
+            const totalIncome = salaryAllowance + extractedBonus + totalBonus;
+            const basicDeduction = parseFloat(document.getElementById('basicDeduction').value) || 0;
+            const specialDeduction = parseFloat(document.getElementById('specialDeduction').value) || 0;
+            const additionalDeduction = parseFloat(document.getElementById('additionalDeduction').value) || 0;
+            const otherDeduction = parseFloat(document.getElementById('otherDeduction').value) || 0;
             
             // 计算工资部分（总收入-奖金）
-            const salary = totalIncome - totalBonus;
+            const salary = salaryAllowance;
             // 计算应纳税所得额（不含奖金）
-            const taxableIncomeWithoutBonus = salary - basicDeduction - specialDeduction - additionalDeduction - otherDeduction;
+            const taxableIncomeWithoutBonus = salary + extractedBonus - basicDeduction - specialDeduction - additionalDeduction - otherDeduction;
             // 初始化最优方案
             let optimalBonus = 0;
             let minTotalTax = Infinity;
