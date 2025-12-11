@@ -35,158 +35,196 @@
         .tax-table tr:nth-child(even) {
             background-color: #fafafa;
         }
-        /* 新增样式：确保输入项容器高度一致，实现对齐 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-divider {
+            border-top: 1px solid #e2e8f0;
+            margin: 1.5rem 0;
+        }
+        .recommendation-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0 4px 4px 0;
+            margin-top: 1.5rem;
+        }
+        /* 新增/修改：确保输入框对齐的核心样式 */
+        .form-grid-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: end; /* 关键：让输入框底部对齐 */
+        }
         .form-item {
             display: flex;
             flex-direction: column;
             height: 100%;
         }
-        .input-container {
-            margin-top: auto; /* 推到容器底部，确保输入框对齐 */
+        .form-item label {
+            margin-bottom: 0.25rem;
+        }
+        .form-item .input-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            flex: 1; /* 让描述文本占满剩余空间，推高输入框 */
+        }
+        .form-item input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        /* 响应式适配：小屏幕变回单列 */
+        @media (max-width: 768px) {
+            .form-grid-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="bg-white p-6 md:p-8 rounded-lg shadow-md w-full max-w-4xl">
-        <div class="flex items-center justify-center mb-6">
-            <i class="fas fa-calculator text-blue-500 text-3xl mr-3"></i>
-            <h1 class="text-2xl font-bold text-center text-gray-800">ZTE-一次性奖金最优提取测算计算器（海外MKT）</h1>
+<body class="bg-gray-50 min-h-screen p-4 md:p-6">
+    <div class="max-w-4xl mx-auto">
+        <!-- 头部标题 -->
+        <header class="text-center mb-6">
+            <div class="flex items-center justify-center">
+                <i class="fas fa-calculator text-blue-500 text-3xl mr-3"></i>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">ZTE-一次性奖金最优提取测算计算器（海外MKT）</h1>
+            </div>
+        </header>
+        
+        <!-- 使用说明卡片 -->
+        <div class="card bg-blue-50 border-l-4 border-blue-500">
+            <h2 class="text-lg font-bold text-blue-700 mb-3 flex items-center">
+                <i class="fas fa-info-circle mr-2 text-blue-600"></i>使用说明
+            </h2>
+            <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-shield-alt mt-1 mr-2 text-blue-400 text-xs"></i>
+                    <span>此工具属于纯前端本地计算工具，所有数据仅在您的设备上处理，不存在数据传输和存储行为</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-calendar-check mt-1 mr-2 text-blue-400 text-xs"></i>
+                    <span>全年一次性奖金单独计税政策延续至<span class="highlight font-medium">2027年12月31日</span>；公司当年全年一次性奖金提取方式使用截止日期：<span class="highlight font-medium">当年12月2日</span></span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-lightbulb mt-1 mr-2 text-blue-400 text-xs"></i>
+                    <span>此工具根据需要提取的奖金总数进行一次性提取的建议，可以根据综合所得税率表临界值决定是否全部提取</span>
+                </li>
+                <li class="pt-2 mt-2 border-t border-blue-100 flex flex-wrap justify-between gap-2 text-xs text-gray-500">
+                    <span class="flex items-center">
+                        <i class="fas fa-code-branch mr-1"></i>
+                        <span>版本号：<span class="highlight">V2.0</span></span>
+                    </span>
+                    <span class="flex items-center">
+                        <i class="far fa-calendar-alt mr-1"></i>
+                        <span>更新日期：<span class="highlight">2025年12月10日</span></span>
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-user-tie mr-1"></i>
+                        <span>联系人：<span class="highlight">徐晓芳 00049686</span></span>
+                    </span>
+                </li>
+            </ul>
         </div>
         
-<!-- 使用说明 -->
-<div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-lg shadow-sm">
-    <h2 class="text-lg font-bold text-blue-700 mb-3 flex items-center">
-        <i class="fas fa-info-circle mr-2 text-blue-600"></i>使用说明
-    </h2>
-    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
-        <li class="flex items-start">
-            <i class="fas fa-shield-alt mt-1 mr-2 text-blue-400 text-xs"></i>
-            <span>此工具属于纯前端本地计算工具，所有数据仅在您的设备上处理，不存在数据传输和存储行为</span>
-        </li>
-        <li class="flex items-start">
-            <i class="fas fa-calendar-check mt-1 mr-2 text-blue-400 text-xs"></i>
-            <span>全年一次性奖金单独计税政策延续至<span class="highlight font-medium">2027年12月31日</span>；公司当年全年一次性奖金提取方式使用截止日期：<span class="highlight font-medium">当年12月2日</span></span>
-        </li>
-        <li class="flex items-start">
-            <i class="fas fa-lightbulb mt-1 mr-2 text-blue-400 text-xs"></i>
-            <span>此工具根据需要提取的奖金总数进行一次性提取的建议，可以根据综合所得税率表临界值决定是否全部提取</span>
-        </li>
-        <li class="pt-2 mt-2 border-t border-blue-100 flex justify-between">
-            <span class="text-xs text-gray-500 flex items-center">
-                <i class="fas fa-code-branch mr-1"></i>
-                <span>版本号：<span class="highlight">V2.0</span></span>
-            </span>
-            <span class="text-xs text-gray-500 flex items-center">
-                <i class="far fa-calendar-alt mr-1"></i>
-                <span>更新日期：<span class="highlight">2025年12月10日</span></span>
-            </span>
-            <span class="text-xs text-gray-500 flex items-center">
-                <i class="fas fa-user-tie mr-1"></i>
-                <span>联系人：<span class="highlight">徐晓芳 00049686</span></span>
-            </span>
-        </li>
-    </ul>
-</div>
-
-        <!-- 输入表单 -->
-        <div class="space-y-6">
-            <!-- 第一组：全年工资津贴预估 和 已经提取奖金 并排 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 输入表单卡片 -->
+        <div class="card">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-pen-to-square mr-2 text-gray-600"></i>收入及扣除信息
+            </h2>
+            
+            <!-- 第一行：全年工资津贴预估 + 已经提取奖金（并排且对齐） -->
+            <div class="form-grid-row mb-6">
                 <div class="form-item">
                     <label for="salaryAllowance" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-money-bill-wave mr-1 text-green-500"></i>全年工资津贴预估（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">包括全年工资、津贴，额外考虑调薪变化</p>
-                    <div class="input-container">
-                        <input type="number" id="salaryAllowance" placeholder="例：220000" 
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
+                    <p class="input-desc">包括全年工资、津贴，额外考虑调薪变化</p>
+                    <input type="number" id="salaryAllowance" placeholder="例：220000" 
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div class="form-item">
                     <label for="extractedBonus" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-coins mr-1 text-yellow-500"></i>已经提取奖金（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">本年度已提取的奖金金额</p>
-                    <div class="input-container">
-                        <input type="number" id="extractedBonus" placeholder="例：20000" value="0"
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
+                    <p class="input-desc">本年度已提取的奖金金额</p>
+                    <input type="number" id="extractedBonus" placeholder="例：20000" value="0"
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
-
-            <!-- 待提取奖金总额 -->
-            <div>
-                <label for="totalBonus" class="block text-sm font-medium text-gray-700">
+            
+            <!-- 待提取奖金总额（单列） -->
+            <div class="form-group mb-6">
+                <label for="totalBonus" class="block text-sm font-medium text-gray-700 mb-1">
                     <i class="fas fa-gift mr-1 text-red-500"></i>待提取奖金总额（元）
                 </label>
                 <input type="number" id="totalBonus" placeholder="例：80000" 
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
             </div>
-
-            <!-- 全年总收入预估 -->
-            <div>
-                <label for="totalIncome" class="block text-sm font-medium text-gray-700">
+            
+            <!-- 全年总收入预估（单列） -->
+            <div class="form-group mb-6">
+                <label for="totalIncome" class="block text-sm font-medium text-gray-700 mb-1">
                     <i class="fas fa-money-bill-alt mr-1 text-indigo-500"></i>全年总收入预估（元）
                 </label>
                 <p class="text-xs text-gray-500 mb-1">自动计算，等于全年工资津贴预估加上已提取奖金和待提取奖金总额</p>
                 <input type="number" id="totalIncome" placeholder="自动计算" readonly
-                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-100">
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
             </div>
-
-            <!-- 第二组：全年基本减除费用 和 专项扣除 并排 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- 第二行：全年基本减除费用 + 专项扣除（并排且对齐） -->
+            <div class="form-grid-row mb-6">
                 <div class="form-item">
                     <label for="basicDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-home mr-1 text-purple-500"></i>全年基本减除费用（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">固定值无需填写</p>
-                    <div class="input-container">
-                        <input type="number" id="basicDeduction" value="60000" readonly 
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm bg-gray-100">
-                    </div>
+                    <p class="input-desc">(固定值无需填写)</p>
+                    <input type="number" id="basicDeduction" value="60000" readonly 
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100">
                 </div>
                 <div class="form-item">
                     <label for="specialDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-shield-alt mr-1 text-yellow-500"></i>专项扣除（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">全年累计社保公积金扣除预估（月度数据参考工资条中代扣社会保险+代扣住房公积金或者个税APP中收入纳税明细），计算需考虑各地上限！</p>
-                    <div class="input-container">
-                        <input type="number" id="specialDeduction" placeholder="例：40000" value="0" 
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
+                    <p class="input-desc">全年累计社保公积金扣除预估（月度数据参考工资条中代扣社会保险+代扣住房公积金或者个税APP中收入纳税明细），计算需考虑各地上限！</p>
+                    <input type="number" id="specialDeduction" placeholder="例：40000" value="0" 
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
-
-            <!-- 第三组：专项附加扣除 和 其他扣除项 并排 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- 第三行：专项附加扣除 + 其他扣除项（并排且对齐） -->
+            <div class="form-grid-row mb-6">
                 <div class="form-item">
                     <label for="additionalDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-child mr-1 text-teal-500"></i>专项附加扣除（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">个人所得税APP填报为准，包括子女教育、继续教育、大病医疗、住房贷款利息、住房租金、赡养老人</p>
-                    <div class="input-container">
-                        <input type="number" id="additionalDeduction" placeholder="例：24000" value="0" 
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
+                    <p class="input-desc">个人所得税APP填报为准，包括子女教育、继续教育、大病医疗、住房贷款利息、住房租金、赡养老人</p>
+                    <input type="number" id="additionalDeduction" placeholder="例：24000" value="0" 
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div class="form-item">
                     <label for="otherDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-hand-holding-heart mr-1 text-pink-500"></i>其他扣除项（元）
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">捐款额+抵税项+个人养老金</p>
-                    <div class="input-container">
-                        <input type="number" id="otherDeduction" placeholder="例：2000" value="0" 
-                            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                    </div>
+                    <p class="input-desc">捐款额+抵税项+个人养老金</p>
+                    <input type="number" id="otherDeduction" placeholder="例：2000" value="0" 
+                        class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
+            
+            <!-- 计算按钮 -->
+            <button onclick="calculateOptimalSplit()" 
+                class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                <i class="fas fa-calculator mr-2"></i>计算最优分配方案
+            </button>
         </div>
-
-        <button onclick="calculateOptimalSplit()" 
-            class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-            <i class="fas fa-calculator mr-2"></i>计算最优分配方案
-        </button>
-
         <!-- 计算结果 -->
         <div id="result" class="mt-6 bg-gray-50 p-6 rounded-md shadow-sm hidden">
             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
@@ -244,4 +282,280 @@
                     </tr>
                     <tr>
                         <td class="px-4 py-2 border">比全部单独计税节省</td>
-                        <td class="px-4 py-2 border text-green-
+                        <td class="px-4 py-2 border text-green-600" id="savingSeparate">0.00 元</td>
+                        <td class="px-4 py-2 border">最优方案 vs 全部单独计税</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="px-4 py-2 border">比全部合并计税节省</td>
+                        <td class="px-4 py-2 border text-green-600" id="savingCombined">0.00 元</td>
+                        <td class="px-4 py-2 border">最优方案 vs 全部合并计税</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 优化建议 -->
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 mt-6 rounded-md">
+                <h3 class="text-md font-bold text-green-700 mb-2 flex items-center">
+                    <i class="fas fa-lightbulb mr-2"></i>优化建议
+                </h3>
+                <p id="recommendation" class="font-medium"></p>
+                <p id="explanation" class="text-sm mt-1"></p>
+            </div>
+            <!-- 注意事项 -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-6 rounded-md">
+                <h3 class="text-md font-bold text-yellow-700 mb-2 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>重要注意事项
+                </h3>
+                <div class="space-y-2 text-sm">
+                    <p><strong>临界点警示：</strong>年终奖在<span class="critical-point">3.6万</span>、<span class="critical-point">14.4万</span>、<span class="critical-point">30万</span>等临界点时，多发1元可能多缴数千元税：</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>36,000元 → 税额1,080元；36,001元 → 税额3,390.1元（多缴2,310.1元）</li>
+                        <li>144,000元 → 税额14,190元；144,001元 → 税额27,390.2元（多缴13,200.2元）</li>
+                    </ul>
+                    <p><strong>汇算清缴：</strong>次年3月1日至6月30日可通过个人所得税APP重新选择计税方式</p>
+                    <p class="text-red-500 font-medium"><i class="fas fa-exclamation-circle mr-1"></i>计算结果仅供参考，实际报税请以税务机关核定为准</p>
+                </div>
+            </div>
+            <!-- 税率表区域 -->
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-table mr-2 text-blue-500"></i>计税税率表（2025年执行标准）
+                </h3>
+                
+                <!-- 全年一次性奖金单独计税税率表 -->
+                <div class="mb-8">
+                    <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">一、全年一次性奖金单独计税税率表</h4>
+                    <table class="tax-table">
+                        <thead>
+                            <tr>
+                                <th>级数</th>
+                                <th>全年一次性奖金应纳税所得额</th>
+                                <th>税率（%）</th>
+                                <th>速算扣除数（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr>
+                            <tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>210</td></tr>
+                            <tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>1410</td></tr>
+                            <tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>2660</td></tr>
+                            <tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>4410</td></tr>
+                            <tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>7160</td></tr>
+                            <tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>15160</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">计税公式：应纳税额 = 全年一次性奖金收入 × 适用税率 - 速算扣除数</p>
+                </div>
+                
+                <!-- 综合所得税率表 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">二、综合所得税率表（工资薪金等适用）</h4>
+                    <table class="tax-table">
+                        <thead>
+                            <tr>
+                                <th>级数</th>
+                                <th>全年应纳税所得额</th>
+                                <th>税率（%）</th>
+                                <th>速算扣除数（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr>
+                            <tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>2520</td></tr>
+                            <tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>16920</td></tr>
+                            <tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>31920</td></tr>
+                            <tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>52920</td></tr>
+                            <tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>85920</td></tr>
+                            <tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>181920</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">计税公式：应纳税额 = 全年应纳税所得额 × 适用税率 - 速算扣除数</p>
+                    <p class="text-xs text-gray-500">全年应纳税所得额 = 全年收入总额 - 基本减除费用（6万元）- 专项扣除 - 专项附加扣除 - 其他扣除</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 监听工资津贴、已提取奖金和待提取奖金输入，自动计算总收入
+        document.getElementById('salaryAllowance').addEventListener('input', updateTotalIncome);
+        document.getElementById('extractedBonus').addEventListener('input', updateTotalIncome);
+        document.getElementById('totalBonus').addEventListener('input', updateTotalIncome);
+        
+        function updateTotalIncome() {
+            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
+            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
+            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
+            const totalIncome = salaryAllowance + extractedBonus + totalBonus;
+            document.getElementById('totalIncome').value = totalIncome.toFixed(0);
+        }
+        
+        // 新增：获取奖金对应的税率和速算扣除数（按全年金额计算）
+        function getBonusTaxParams(bonus) {
+            if (bonus <= 0) return { rate: 0, deduction: 0 };
+            if (bonus <= 36000) return { rate: 3, deduction: 0 };
+            if (bonus <= 144000) return { rate: 10, deduction: 210 };
+            if (bonus <= 300000) return { rate: 20, deduction: 1410 };
+            if (bonus <= 420000) return { rate: 25, deduction: 2660 };
+            if (bonus <= 660000) return { rate: 30, deduction: 4410 };
+            if (bonus <= 960000) return { rate: 35, deduction: 7160 };
+            return { rate: 45, deduction: 15160 };
+        }
+        
+        // 新增：获取综合所得对应的税率
+        function getIncomeTaxRate(income) {
+            if (income <= 0) return 0;
+            if (income <= 36000) return 3;
+            if (income <= 144000) return 10;
+            if (income <= 300000) return 20;
+            if (income <= 420000) return 25;
+            if (income <= 660000) return 30;
+            if (income <= 960000) return 35;
+            return 45;
+        }
+        
+        function calculateOptimalSplit() {
+            // 获取输入值
+            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
+            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
+            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
+            const totalIncome = salaryAllowance + extractedBonus + totalBonus;
+            const basicDeduction = parseFloat(document.getElementById('basicDeduction').value) || 0;
+            const specialDeduction = parseFloat(document.getElementById('specialDeduction').value) || 0;
+            const additionalDeduction = parseFloat(document.getElementById('additionalDeduction').value) || 0;
+            const otherDeduction = parseFloat(document.getElementById('otherDeduction').value) || 0;
+            
+            // 计算工资部分（总收入-奖金）
+            const salary = salaryAllowance;
+            // 计算应纳税所得额（不含奖金）
+            const taxableIncomeWithoutBonus = salary + extractedBonus - basicDeduction - specialDeduction - additionalDeduction - otherDeduction;
+            // 初始化最优方案
+            let optimalBonus = 0;
+            let minTotalTax = Infinity;
+            let optimalBonusRate = 0;
+            let optimalBonusDeduction = 0;
+            
+            // 测试不同奖金分配方案（从0到totalBonus，步长1000元）
+            for (let bonus = 0; bonus <= totalBonus; bonus += 1000) {
+                const salaryBonus = totalBonus - bonus;
+                // 计算奖金单独计税税额（按全年金额直接计算）
+                const bonusTax = calculateBonusTaxSeparate(bonus);
+                // 计算合并部分的税额
+                const combinedTaxableIncome = taxableIncomeWithoutBonus + salaryBonus;
+                const combinedTax = calculateIncomeTax(combinedTaxableIncome);
+                // 计算工资部分税额（不含奖金）
+                const salaryTax = calculateIncomeTax(taxableIncomeWithoutBonus);
+                // 计算总税额
+                const totalTax = bonusTax + combinedTax - salaryTax;
+                // 更新最优方案
+                if (totalTax < minTotalTax) {
+                    minTotalTax = totalTax;
+                    optimalBonus = bonus;
+                    // 记录最优方案的税率参数
+                    const bonusParams = getBonusTaxParams(bonus);
+                    optimalBonusRate = bonusParams.rate;
+                    optimalBonusDeduction = bonusParams.deduction;
+                }
+            }
+            
+            // 计算最优方案详情
+            const optimalSalaryBonus = totalBonus - optimalBonus;
+            const optimalBonusTax = calculateBonusTaxSeparate(optimalBonus);
+            const optimalCombinedTaxableIncome = taxableIncomeWithoutBonus + optimalSalaryBonus;
+            const optimalCombinedTax = calculateIncomeTax(optimalCombinedTaxableIncome);
+            const originalSalaryTax = calculateIncomeTax(taxableIncomeWithoutBonus);
+            const combinedTaxRate = getIncomeTaxRate(optimalCombinedTaxableIncome);
+            
+            // 计算比较方案
+            const allSeparateTax = calculateBonusTaxSeparate(totalBonus) + originalSalaryTax;
+            const allCombinedTax = calculateIncomeTax(taxableIncomeWithoutBonus + totalBonus);
+            
+            // 显示结果
+            document.getElementById("optimalBonus").textContent = optimalBonus.toFixed(2);
+            document.getElementById("optimalSalaryBonus").textContent = optimalSalaryBonus.toFixed(2);
+            document.getElementById("bonusTaxRate").textContent = optimalBonusRate + "%";
+            document.getElementById("bonusTaxDeduction").textContent = optimalBonusDeduction.toFixed(2);
+            document.getElementById("bonusTax").textContent = optimalBonusTax.toFixed(2);
+            document.getElementById("salaryTaxableIncome").textContent = taxableIncomeWithoutBonus.toFixed(2);
+            document.getElementById("combinedTaxRate").textContent = combinedTaxRate + "%";
+            document.getElementById("salaryBonusTax").textContent = (optimalCombinedTax - originalSalaryTax).toFixed(2);
+            document.getElementById("salaryTaxableIncomeTable").textContent = taxableIncomeWithoutBonus.toFixed(2);
+            document.getElementById("totalTaxableIncome").textContent = optimalCombinedTaxableIncome.toFixed(2);
+            document.getElementById("salaryTax").textContent = originalSalaryTax.toFixed(2);
+            document.getElementById("totalTax").textContent = minTotalTax.toFixed(2);
+            document.getElementById("savingSeparate").textContent = (allSeparateTax - minTotalTax).toFixed(2) + " 元";
+            document.getElementById("savingCombined").textContent = (allCombinedTax - minTotalTax).toFixed(2) + " 元";
+            
+            // 生成建议
+            let recommendation = "";
+            if (optimalBonus === 0) {
+                recommendation = "建议：全部奖金随工资提取并入计税最优";
+            } else if (optimalSalaryBonus === 0) {
+                recommendation = `建议：全部奖金一次性提取单独计税最优（适用税率${optimalBonusRate}%，速算扣除数${optimalBonusDeduction}元）`;
+            } else {
+                recommendation = `建议：拆分奖金为 <span class="highlight">${optimalBonus.toFixed(2)} 元</span> 一次性提取（税率${optimalBonusRate}%） + <span class="highlight">${optimalSalaryBonus.toFixed(2)} 元</span> 随工资提取（合并后税率${combinedTaxRate}%）`;
+            }
+            document.getElementById("recommendation").innerHTML = recommendation;
+            document.getElementById("explanation").innerHTML = `此方案可实现整体税负最低，比全部单独计税节省 <span class="text-green-600 font-medium">${(allSeparateTax - minTotalTax).toFixed(2)} 元</span>，比全部合并计税节省 <span class="text-green-600 font-medium">${(allCombinedTax - minTotalTax).toFixed(2)} 元</span>`;
+            
+            document.getElementById("result").classList.remove("hidden");
+        }
+        
+        // 计算年终奖单独计税（按全年金额直接计算，不除以12）
+        function calculateBonusTaxSeparate(bonus) {
+            if (bonus <= 0) return 0;
+            let rate, deduction;
+            if (bonus <= 36000) {
+                rate = 0.03;
+                deduction = 0;
+            } else if (bonus <= 144000) {
+                rate = 0.1;
+                deduction = 210;
+            } else if (bonus <= 300000) {
+                rate = 0.2;
+                deduction = 1410;
+            } else if (bonus <= 420000) {
+                rate = 0.25;
+                deduction = 2660;
+            } else if (bonus <= 660000) {
+                rate = 0.3;
+                deduction = 4410;
+            } else if (bonus <= 960000) {
+                rate = 0.35;
+                deduction = 7160;
+            } else {
+                rate = 0.45;
+                deduction = 15160;
+            }
+            return bonus * rate - deduction;
+        }
+        
+        // 计算综合所得税
+        function calculateIncomeTax(income) {
+            if (income <= 0) return 0;
+            let rate, deduction;
+            if (income <= 36000) {
+                rate = 0.03;
+                deduction = 0;
+            } else if (income <= 144000) {
+                rate = 0.1;
+                deduction = 2520;
+            } else if (income <= 300000) {
+                rate = 0.2;
+                deduction = 16920;
+            } else if (income <= 420000) {
+                rate = 0.25;
+                deduction = 31920;
+            } else if (income <= 660000) {
+                rate = 0.3;
+                deduction = 52920;
+            } else if (income <= 960000) {
+                rate = 0.35;
+                deduction = 85920;
+            } else {
+                rate = 0.45;
+                deduction = 181920;
+            }
+            return income * rate - deduction;
+        }
+    </script>
+</body>
+</html>
