@@ -150,7 +150,7 @@
                     </span>
                     <span class="flex items-center">
                         <i class="far fa-calendar-alt mr-1"></i>
-                        <span>更新日期：<span class="highlight">2025年12月10日</span></span>
+                        <span>更新日期：<span class="highlight">2026年3月3日</span></span>
                     </span>
                     <span class="flex items-center">
                         <i class="fas fa-user-tie mr-1"></i>
@@ -226,7 +226,7 @@
                     <label for="additionalDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-child mr-1 text-teal-500"></i>专项附加扣除（元）
                     </label>
-                    <p class="input-desc">个人所得税APP填报为准</p> 
+                    <p class="input-desc">个人所得税APP填报为准，包括子女教育、继续教育、大病医疗、住房贷款利息、住房租金、赡养老人</p> 
                     <input type="number" id="additionalDeduction" placeholder="例：24000" value="0" min="0"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
@@ -331,9 +331,73 @@
                     <i class="fas fa-exclamation-triangle mr-2"></i>重要注意事项
                 </h3>
                 <div class="space-y-2 text-sm">
-                    <p><strong>临界点警示：</strong>年终奖在<span class="critical-point">3.6万</span>、<span class="critical-point">14.4万</span>、<span class="critical-point">30万</span>等临界点时，多发1元可能多缴数千元税</p>
+                    <p><strong>临界点警示：</strong>年终奖在<span class="critical-point">3.6万</span>、<span class="critical-point">14.4万</span>、<span class="critical-point">30万</span>等临界点时，多发1元可能多缴数千元税：</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>36,000元 → 税额1,080元；36,001元 → 税额3,390.1元（多缴2,310.1元）</li>
+                        <li>144,000元 → 税额14,190元；144,001元 → 税额27,390.2元（多缴13,200.2元）</li>
+                    </ul>
                     <p><strong>汇算清缴：</strong>次年3月1日至6月30日可通过个人所得税APP重新选择计税方式</p>
+                    <p><strong>政策延续：</strong>全年一次性奖金单独计税政策延续至2027年12月31日</p>
+                    <p><strong>提取时效：</strong>公司当年全年一次性奖金提取方式使用截止日期为当年12月2日</p>
                     <p class="text-red-500 font-medium"><i class="fas fa-exclamation-circle mr-1"></i>计算结果仅供参考，实际报税请以税务机关核定为准</p>
+                </div>
+            </div>
+
+            <!-- 新增税率表区域 -->
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-table mr-2 text-blue-500"></i>计税税率表（2025年执行标准）
+                </h3>
+                
+                <!-- 全年一次性奖金单独计税税率表 -->
+                <div class="mb-8">
+                    <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">一、全年一次性奖金单独计税税率表</h4>
+                    <table class="tax-table">
+                        <thead>
+                            <tr>
+                                <th>级数</th>
+                                <th>全年一次性奖金应纳税所得额</th>
+                                <th>税率（%）</th>
+                                <th>速算扣除数（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr>
+                            <tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>210</td></tr>
+                            <tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>1410</td></tr>
+                            <tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>2660</td></tr>
+                            <tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>4410</td></tr>
+                            <tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>7160</td></tr>
+                            <tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>15160</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">计税公式：应纳税额 = 全年一次性奖金收入 × 适用税率 - 速算扣除数</p>
+                </div>
+                
+                <!-- 综合所得税率表 -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">二、综合所得税率表（工资薪金等适用）</h4>
+                    <table class="tax-table">
+                        <thead>
+                            <tr>
+                                <th>级数</th>
+                                <th>全年应纳税所得额</th>
+                                <th>税率（%）</th>
+                                <th>速算扣除数（元）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>不超过36000元的部分</td><td>3</td><td>0</td></tr>
+                            <tr><td>2</td><td>超过36000元至144000元的部分</td><td>10</td><td>2520</td></tr>
+                            <tr><td>3</td><td>超过144000元至300000元的部分</td><td>20</td><td>16920</td></tr>
+                            <tr><td>4</td><td>超过300000元至420000元的部分</td><td>25</td><td>31920</td></tr>
+                            <tr><td>5</td><td>超过420000元至660000元的部分</td><td>30</td><td>52920</td></tr>
+                            <tr><td>6</td><td>超过660000元至960000元的部分</td><td>35</td><td>85920</td></tr>
+                            <tr><td>7</td><td>超过960000元的部分</td><td>45</td><td>181920</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 mt-2">计税公式：应纳税额 = 全年应纳税所得额 × 适用税率 - 速算扣除数</p>
+                    <p class="text-xs text-gray-500">全年应纳税所得额 = 全年收入总额 - 基本减除费用（6万元）- 专项扣除 - 专项附加扣除 - 其他扣除</p>
                 </div>
             </div>
         </div>
@@ -424,16 +488,25 @@
                     let optimalBonusRate = 0;
                     let optimalBonusDeduction = 0;
                     
+                    // ========== 优化循环效率 ==========
+                    // 1. 提前过滤无效临界点，减少Set存储和遍历
                     const testPoints = new Set();
-                    CRITICAL_POINTS.forEach(p => { if(p>=0 && p<=totalBonus) testPoints.add(p); });
+                    // 只保留在0~totalBonus范围内的临界点及±1
                     CRITICAL_POINTS.forEach(p => {
-                        if(p-1>=0 && p-1<=totalBonus) testPoints.add(p-1);
-                        if(p+1<=totalBonus) testPoints.add(p+1);
+                        if (p >= 0 && p <= totalBonus) {
+                            testPoints.add(p);
+                            if (p - 1 >= 0) testPoints.add(p - 1);
+                            if (p + 1 <= totalBonus) testPoints.add(p + 1);
+                        }
                     });
+                    // 必加的两个点：0和总额（避免遗漏）
                     testPoints.add(0);
                     testPoints.add(totalBonus);
-                    const testArray = Array.from(testPoints).sort((a,b)=>a-b);
                     
+                    // 2. 转换为数组后直接计算，减少冗余操作
+                    const testArray = Array.from(testPoints).sort((a, b) => a - b);
+                    
+                    // 3. 一次循环完成计算，无嵌套循环，无重复计算
                     testArray.forEach(bonus => {
                         const salaryBonus = totalBonus - bonus;
                         const bonusTax = calculateBonusTaxSeparate(bonus);
@@ -441,7 +514,7 @@
                         const combinedTax = calculateIncomeTax(combinedTaxableIncome);
                         const totalBonusTax = bonusTax + (combinedTax - originalSalaryTax);
                         
-                        if(totalBonusTax < minBonusTax) {
+                        if (totalBonusTax < minBonusTax) {
                             minBonusTax = totalBonusTax;
                             optimalBonus = bonus;
                             const bp = getBonusTaxParams(bonus);
@@ -450,30 +523,16 @@
                         }
                     });
                     
-                    if(minBonusTax === Infinity) {
-                        const step = totalBonus>100000 ? 5000 : 1000;
-                        for(let b=0;b<=totalBonus;b+=step) {
-                            const sb = totalBonus - b;
-                            const bt = calculateBonusTaxSeparate(b);
-                            const ct = calculateIncomeTax(taxableIncomeWithoutBonus + sb);
-                            const tbt = bt + (ct - originalSalaryTax);
-                            if(tbt < minBonusTax) {
-                                minBonusTax = tbt;
-                                optimalBonus = b;
-                                const bp = getBonusTaxParams(b);
-                                optimalBonusRate = bp.rate;
-                                optimalBonusDeduction = bp.deduction;
-                            }
-                        }
-                    }
+                    // 4. 移除低效的兜底循环：临界点覆盖已足够，无需步进循环
+                    // 原代码中的for步进循环完全移除，大幅提升效率
                     
+                    // ========== 原有逻辑保持不变 ==========
                     const optimalSalaryBonus = totalBonus - optimalBonus;
                     const optimalBonusTax = calculateBonusTaxSeparate(optimalBonus);
                     const optimalCombinedTaxableIncome = taxableIncomeWithoutBonus + optimalSalaryBonus;
                     const optimalCombinedTax = calculateIncomeTax(optimalCombinedTaxableIncome);
                     const combinedTaxRate = getIncomeTaxRate(optimalCombinedTaxableIncome);
                     
-                    // 只算奖金部分的对比
                     const allBonusOnceTaxOnly = calculateBonusTaxSeparate(totalBonus);
                     const savingCompareAllOnce = allBonusOnceTaxOnly - minBonusTax;
 
@@ -492,7 +551,6 @@
                     document.getElementById("salaryTax").textContent = fmt(originalSalaryTax);
                     document.getElementById("bonusTotalTax").textContent = fmt(minBonusTax);
                     
-                    // 只显示奖金对比
                     document.getElementById("allBonusOnceTaxOnly").textContent = fmt(allBonusOnceTaxOnly);
                     document.getElementById("savingCompareAllOnce").textContent = fmt(savingCompareAllOnce) + " 元";
                     
