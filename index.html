@@ -3,118 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一次性奖金最优分配计税计算器(海外MKT试用)</title>
+    <title>一次性奖金最优分配计税计算器（海外MKT试用）</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
-        .highlight {
-            font-weight: bold;
-            color: #e53935;
-        }
-        .critical-point {
-            background-color: #ffebee;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-        .tax-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-        .tax-table th, .tax-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .tax-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #2d3748;
-        }
-        .tax-table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .section-divider {
-            border-top: 1px solid #e2e8f0;
-            margin: 1.5rem 0;
-        }
-        .recommendation-box {
-            background-color: #f0f9ff;
-            border-left: 4px solid #3b82f6;
-            padding: 1rem;
-            border-radius: 0 4px 4px 0;
-            margin-top: 1.5rem;
-        }
-        .form-grid-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            align-items: end;
-        }
-        .form-item {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .form-item label {
-            margin-bottom: 0.25rem;
-        }
-        .form-item .input-desc {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-bottom: 0.5rem;
-            flex: 1;
-        }
-        .form-item input {
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .input-error {
-            border-color: #e53935 !important;
-        }
-        .error-message {
-            color: #e53935;
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
-        .error-message.show {
-            display: block;
-        }
-        @media (max-width: 768px) {
-            .form-grid-row {
-                grid-template-columns: 1fr;
-            }
-        }
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3b82f6;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .calculating {
-            pointer-events: none;
-            opacity: 0.8;
-        }
+        .highlight { font-weight: bold; color: #e53935; }
+        .critical-point { background-color: #ffebee; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+        .tax-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .tax-table th, .tax-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .tax-table th { background-color: #f8f9fa; font-weight: 600; color: #2d3748; }
+        .tax-table tr:nth-child(even) { background-color: #fafafa; }
+        .form-group { margin-bottom: 1.5rem; }
+        .card { background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .form-grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: end; }
+        .form-item { display: flex; flex-direction: column; height: 100%; }
+        .form-item label { margin-bottom: 0.25rem; }
+        .form-item .input-desc { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.5rem; flex: 1; }
+        .form-item input { width: 100%; box-sizing: border-box; }
+        .input-error { border-color: #e53935 !important; }
+        .error-message { color: #e53935; font-size: 0.75rem; margin-top: 0.25rem; display: none; }
+        .error-message.show { display: block; }
+        @media (max-width: 768px) { .form-grid-row { grid-template-columns: 1fr; } }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .calculating { pointer-events: none; opacity: 0.8; }
+        .combine-critical-warning { background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem; border-radius: 0 4px 4px 0; margin-top: 1rem; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen p-4 md:p-6">
@@ -146,11 +59,11 @@
                 <li class="pt-2 mt-2 border-t border-blue-100 flex flex-wrap justify-between gap-2 text-xs text-gray-500">
                     <span class="flex items-center">
                         <i class="fas fa-code-branch mr-1"></i>
-                        <span>版本号：<span class="highlight">V2.4</span></span>
+                        <span>版本号：<span class="highlight">V3.0</span></span>
                     </span>
                     <span class="flex items-center">
                         <i class="far fa-calendar-alt mr-1"></i>
-                        <span>更新日期：<span class="highlight">2026年3月3日</span></span>
+                        <span>更新日期：<span class="highlight">2026-3-3</span></span>
                     </span>
                     <span class="flex items-center">
                         <i class="fas fa-user-tie mr-1"></i>
@@ -170,16 +83,16 @@
                         <i class="fas fa-money-bill-wave mr-1 text-green-500"></i>全年工资津贴预估（元）
                     </label>
                     <p class="input-desc">包括全年工资、津贴，额外考虑调薪变化</p>
-                    <input type="number" id="salaryAllowance" placeholder="例：220000" min="0"
+                    <input type="number" id="salaryAllowance" placeholder="例：220000" min="0" step="0.01"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     <div id="salaryAllowanceError" class="error-message"><i class="fas fa-exclamation-circle mr-1"></i>请输入有效的工资金额（大于0）</div>
                 </div>
                 <div class="form-item">
                     <label for="extractedBonus" class="block text-sm font-medium text-gray-700">
-                        <i class="fas fa-coins mr-1 text-yellow-500"></i>已经提取奖金（元）
+                        <i class="fas fa-coins mr-1 text-yellow-500"></i>已经随工资提取奖金（元）
                     </label>
-                    <p class="input-desc">本年度已提取的奖金金额</p>
-                    <input type="number" id="extractedBonus" placeholder="例：20000" value="0" min="0"
+                    <p class="input-desc">本年度已随工资提取的奖金金额</p>
+                    <input type="number" id="extractedBonus" placeholder="例：20000" value="0" min="0" step="0.01"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
@@ -188,7 +101,7 @@
                 <label for="totalBonus" class="block text-sm font-medium text-gray-700 mb-1">
                     <i class="fas fa-gift mr-1 text-red-500"></i>待提取奖金总额（元）
                 </label>
-                <input type="number" id="totalBonus" placeholder="例：80000" min="0"
+                <input type="number" id="totalBonus" placeholder="例：80000" min="0" step="0.01"
                     class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 <div id="totalBonusError" class="error-message"><i class="fas fa-exclamation-circle mr-1"></i>请输入有效的奖金金额（大于0）</div>
             </div>
@@ -216,7 +129,7 @@
                         <i class="fas fa-shield-alt mr-1 text-yellow-500"></i>专项扣除（元）
                     </label>
                     <p class="input-desc">全年累计社保公积金扣除预估</p>
-                    <input type="number" id="specialDeduction" placeholder="例：40000" value="0" min="0"
+                    <input type="number" id="specialDeduction" placeholder="例：40000" value="0" min="0" step="0.01"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
@@ -226,8 +139,8 @@
                     <label for="additionalDeduction" class="block text-sm font-medium text-gray-700">
                         <i class="fas fa-child mr-1 text-teal-500"></i>专项附加扣除（元）
                     </label>
-                    <p class="input-desc">个人所得税APP填报为准，包括子女教育、继续教育、大病医疗、住房贷款利息、住房租金、赡养老人</p> 
-                    <input type="number" id="additionalDeduction" placeholder="例：24000" value="0" min="0"
+                    <p class="input-desc">个人所得税APP填报为准</p> 
+                    <input type="number" id="additionalDeduction" placeholder="例：24000" value="0" min="0" step="0.01"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
                 <div class="form-item">
@@ -235,15 +148,17 @@
                         <i class="fas fa-hand-holding-heart mr-1 text-pink-500"></i>其他扣除项（元）
                     </label>
                     <p class="input-desc">捐款额+抵税项+个人养老金</p>
-                    <input type="number" id="otherDeduction" placeholder="例：2000" value="0" min="0"
+                    <input type="number" id="otherDeduction" placeholder="例：2000" value="0" min="0" step="0.01"
                         class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
             
-            <button id="calculateBtn" onclick="calculateOptimalSplit()" 
-                class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-                <i class="fas fa-calculator mr-2"></i>计算最优分配方案
-            </button>
+            <div class="flex gap-3">
+                <button id="calculateBtn" onclick="calculateOptimalSplit()" 
+                    class="flex-1 mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                    <i class="fas fa-calculator mr-2"></i>计算最优分配方案
+                </button>
+            </div>
             <button id="loadingBtn" style="display: none;" 
                 class="w-full mt-4 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-150 ease-in-out calculating">
                 <span class="loader"></span>正在计算最优方案...
@@ -274,6 +189,13 @@
                     <p class="mb-1">合并后适用税率：<span id="combinedTaxRate" class="text-orange-500 font-medium">0%</span></p>
                     <p>税额：<span id="salaryBonusTax" class="text-red-500">0</span> 元</p>
                 </div>
+            </div>
+
+            <div id="combineCriticalWarning" class="combine-critical-warning hidden">
+                <h3 class="text-md font-bold text-red-700 mb-2 flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>综合所得临界点超标提醒
+                </h3>
+                <p id="combineWarnText" class="text-sm text-red-800"></p>
             </div>
             
             <table class="w-full mt-4 border-collapse">
@@ -339,17 +261,15 @@
                     <p><strong>汇算清缴：</strong>次年3月1日至6月30日可通过个人所得税APP重新选择计税方式</p>
                     <p><strong>政策延续：</strong>全年一次性奖金单独计税政策延续至2027年12月31日</p>
                     <p><strong>提取时效：</strong>公司当年全年一次性奖金提取方式使用截止日期为当年12月2日</p>
-                    <p class="text-red-500 font-medium"><i class="fas fa-exclamation-circle mr-1"></i>计算结果仅供参考，实际报税请以税务机关核定为准</p>
+                    <p class="text-red-500 font-medium"><i class="fas fa-exclamation-circle mr-1"></i>计算结果基于现行个人所得税政策及公开税率表，仅供内部测算使用参考，不构成税务建议或申报依据，请以税务机关核定为准，因数据输出错误、政策变化、系统误差导致的任何损失，开发者和相关人员不承担法律责任</p>
                 </div>
             </div>
 
-            <!-- 新增税率表区域 -->
             <div class="mt-8 pt-6 border-t border-gray-200">
                 <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
                     <i class="fas fa-table mr-2 text-blue-500"></i>计税税率表（2025年执行标准）
                 </h3>
                 
-                <!-- 全年一次性奖金单独计税税率表 -->
                 <div class="mb-8">
                     <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">一、全年一次性奖金单独计税税率表</h4>
                     <table class="tax-table">
@@ -374,7 +294,6 @@
                     <p class="text-xs text-gray-500 mt-2">计税公式：应纳税额 = 全年一次性奖金收入 × 适用税率 - 速算扣除数</p>
                 </div>
                 
-                <!-- 综合所得税率表 -->
                 <div>
                     <h4 class="text-md font-semibold text-gray-700 mb-3 text-blue-600">二、综合所得税率表（工资薪金等适用）</h4>
                     <table class="tax-table">
@@ -405,204 +324,162 @@
 
     <script>
         const CRITICAL_POINTS = [0, 36000, 144000, 300000, 420000, 660000, 960000];
-        
-        document.getElementById('salaryAllowance').addEventListener('input', updateTotalIncome);
-        document.getElementById('extractedBonus').addEventListener('input', updateTotalIncome);
-        document.getElementById('totalBonus').addEventListener('input', updateTotalIncome);
-        
+        const COMBINE_CRITICAL = [300000, 420000, 660000, 960000].sort((a,b) => a - b);
+
+        function getEl(id) {
+            return document.getElementById(id) || { style: {}, classList: { add: ()=>{}, remove: ()=>{} }, textContent: '', innerHTML: '', value: '' };
+        }
+
+        function fmt(n) {
+            const num = Number(n || 0);
+            return num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
         function updateTotalIncome() {
-            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
-            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
-            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
-            const totalIncome = salaryAllowance + extractedBonus + totalBonus;
-            document.getElementById('totalIncome').value = totalIncome.toFixed(0);
-            clearError('salaryAllowance');
-            clearError('totalBonus');
+            const salary = parseFloat(getEl('salaryAllowance').value) || 0;
+            const extr = parseFloat(getEl('extractedBonus').value) || 0;
+            const totalB = parseFloat(getEl('totalBonus').value) || 0;
+            getEl('totalIncome').value = (salary + extr + totalB).toFixed(0);
         }
-        
-        function clearError(inputId) {
-            const input = document.getElementById(inputId);
-            const error = document.getElementById(`${inputId}Error`);
-            input.classList.remove('input-error');
-            error.classList.remove('show');
+
+        function getIncomeTaxParam(income) {
+            if(income <= 36000) return {r:0.03, d:0};
+            if(income <= 144000) return {r:0.1, d:2520};
+            if(income <= 300000) return {r:0.2, d:16920};
+            if(income <= 420000) return {r:0.25, d:31920};
+            if(income <= 660000) return {r:0.3, d:52920};
+            if(income <= 960000) return {r:0.35, d:85920};
+            return {r:0.45, d:181920};
         }
-        
-        function showError(inputId) {
-            const input = document.getElementById(inputId);
-            const error = document.getElementById(`${inputId}Error`);
-            input.classList.add('input-error');
-            error.classList.add('show');
+
+        function calculateIncomeTax(income) {
+            if(income <= 0) return 0;
+            const p = getIncomeTaxParam(income);
+            return income * p.r - p.d;
         }
-        
-        function getBonusTaxParams(bonus) {
-            if (bonus <= 0) return { rate: 0, deduction: 0 };
-            if (bonus <= 36000) return { rate: 3, deduction: 0 };
-            if (bonus <= 144000) return { rate: 10, deduction: 210 };
-            if (bonus <= 300000) return { rate: 20, deduction: 1410 };
-            if (bonus <= 420000) return { rate: 25, deduction: 2660 };
-            if (bonus <= 660000) return { rate: 30, deduction: 4410 };
-            if (bonus <= 960000) return { rate: 35, deduction: 7160 };
-            return { rate: 45, deduction: 15160 };
+
+        function getBonusTaxParam(bonus) {
+            if(bonus <= 36000) return {r:0.03, d:0};
+            if(bonus <= 144000) return {r:0.1, d:210};
+            if(bonus <= 300000) return {r:0.2, d:1410};
+            if(bonus <= 420000) return {r:0.25, d:2660};
+            if(bonus <= 660000) return {r:0.3, d:4410};
+            if(bonus <= 960000) return {r:0.35, d:7160};
+            return {r:0.45, d:15160};
         }
-        
-        function getIncomeTaxRate(income) {
-            if (income <= 0) return 0;
-            if (income <= 36000) return 3;
-            if (income <= 144000) return 10;
-            if (income <= 300000) return 20;
-            if (income <= 420000) return 25;
-            if (income <= 660000) return 30;
-            if (income <= 960000) return 35;
-            return 45;
+
+        function calculateBonusTaxSeparate(bonus) {
+            if(bonus <= 0) return 0;
+            const p = getBonusTaxParam(bonus);
+            return bonus * p.r - p.d;
         }
-        
+
+        function findNearestCombineBreakPoint(val) {
+            const lowerPoints = COMBINE_CRITICAL.filter(p => p < val);
+            if(lowerPoints.length === 0) return null;
+            const nearest = Math.max(...lowerPoints);
+            return { point: nearest, exceed: val - nearest };
+        }
+
         function calculateOptimalSplit() {
-            document.getElementById('calculateBtn').style.display = 'none';
-            document.getElementById('loadingBtn').style.display = 'block';
-            
-            const salaryAllowance = parseFloat(document.getElementById('salaryAllowance').value) || 0;
-            const extractedBonus = parseFloat(document.getElementById('extractedBonus').value) || 0;
-            const totalBonus = parseFloat(document.getElementById('totalBonus').value) || 0;
-            const basicDeduction = parseFloat(document.getElementById('basicDeduction').value) || 0;
-            const specialDeduction = parseFloat(document.getElementById('specialDeduction').value) || 0;
-            const additionalDeduction = parseFloat(document.getElementById('additionalDeduction').value) || 0;
-            const otherDeduction = parseFloat(document.getElementById('otherDeduction').value) || 0;
-            
-            let isValid = true;
-            if (salaryAllowance <= 0) { showError('salaryAllowance'); isValid = false; }
-            if (totalBonus <= 0) { showError('totalBonus'); isValid = false; }
-            if (!isValid) {
-                document.getElementById('calculateBtn').style.display = 'block';
-                document.getElementById('loadingBtn').style.display = 'none';
+            const calculateBtn = getEl('calculateBtn');
+            const loadingBtn = getEl('loadingBtn');
+            calculateBtn.style.display = 'none';
+            loadingBtn.style.display = 'block';
+
+            const salary = parseFloat(getEl('salaryAllowance').value) || 0;
+            const extrBonus = parseFloat(getEl('extractedBonus').value) || 0;
+            const totalBonus = parseFloat(getEl('totalBonus').value) || 0;
+            const baseDed = parseFloat(getEl('basicDeduction').value) || 60000;
+            const special = parseFloat(getEl('specialDeduction').value) || 0;
+            const add = parseFloat(getEl('additionalDeduction').value) || 0;
+            const other = parseFloat(getEl('otherDeduction').value) || 0;
+
+            if(salary <= 0 || totalBonus <= 0) {
+                getEl('salaryAllowanceError').classList.add('show');
+                getEl('totalBonusError').classList.add('show');
+                calculateBtn.style.display = 'block';
+                loadingBtn.style.display = 'none';
                 return;
             }
-            
-            setTimeout(() => {
-                try {
-                    const salary = salaryAllowance;
-                    const taxableIncomeWithoutBonus = salary + extractedBonus - basicDeduction - specialDeduction - additionalDeduction - otherDeduction;
-                    const originalSalaryTax = calculateIncomeTax(taxableIncomeWithoutBonus);
-                    
-                    let optimalBonus = 0;
-                    let minBonusTax = Infinity;
-                    let optimalBonusRate = 0;
-                    let optimalBonusDeduction = 0;
-                    
-                    // ========== 优化循环效率 ==========
-                    // 1. 提前过滤无效临界点，减少Set存储和遍历
-                    const testPoints = new Set();
-                    // 只保留在0~totalBonus范围内的临界点及±1
-                    CRITICAL_POINTS.forEach(p => {
-                        if (p >= 0 && p <= totalBonus) {
-                            testPoints.add(p);
-                            if (p - 1 >= 0) testPoints.add(p - 1);
-                            if (p + 1 <= totalBonus) testPoints.add(p + 1);
-                        }
-                    });
-                    // 必加的两个点：0和总额（避免遗漏）
-                    testPoints.add(0);
-                    testPoints.add(totalBonus);
-                    
-                    // 2. 转换为数组后直接计算，减少冗余操作
-                    const testArray = Array.from(testPoints).sort((a, b) => a - b);
-                    
-                    // 3. 一次循环完成计算，无嵌套循环，无重复计算
-                    testArray.forEach(bonus => {
-                        const salaryBonus = totalBonus - bonus;
-                        const bonusTax = calculateBonusTaxSeparate(bonus);
-                        const combinedTaxableIncome = taxableIncomeWithoutBonus + salaryBonus;
-                        const combinedTax = calculateIncomeTax(combinedTaxableIncome);
-                        const totalBonusTax = bonusTax + (combinedTax - originalSalaryTax);
-                        
-                        if (totalBonusTax < minBonusTax) {
-                            minBonusTax = totalBonusTax;
-                            optimalBonus = bonus;
-                            const bp = getBonusTaxParams(bonus);
-                            optimalBonusRate = bp.rate;
-                            optimalBonusDeduction = bp.deduction;
-                        }
-                    });
-                    
-                    // 4. 移除低效的兜底循环：临界点覆盖已足够，无需步进循环
-                    // 原代码中的for步进循环完全移除，大幅提升效率
-                    
-                    // ========== 原有逻辑保持不变 ==========
-                    const optimalSalaryBonus = totalBonus - optimalBonus;
-                    const optimalBonusTax = calculateBonusTaxSeparate(optimalBonus);
-                    const optimalCombinedTaxableIncome = taxableIncomeWithoutBonus + optimalSalaryBonus;
-                    const optimalCombinedTax = calculateIncomeTax(optimalCombinedTaxableIncome);
-                    const combinedTaxRate = getIncomeTaxRate(optimalCombinedTaxableIncome);
-                    
-                    const allBonusOnceTaxOnly = calculateBonusTaxSeparate(totalBonus);
-                    const savingCompareAllOnce = allBonusOnceTaxOnly - minBonusTax;
 
-                    const fmt = n => n%1===0 ? n.toFixed(0) : n.toFixed(2);
-                    
-                    document.getElementById("optimalBonus").textContent = fmt(optimalBonus);
-                    document.getElementById("optimalSalaryBonus").textContent = fmt(optimalSalaryBonus);
-                    document.getElementById("bonusTaxRate").textContent = optimalBonusRate + "%";
-                    document.getElementById("bonusTaxDeduction").textContent = fmt(optimalBonusDeduction);
-                    document.getElementById("bonusTax").textContent = fmt(optimalBonusTax);
-                    document.getElementById("salaryTaxableIncome").textContent = fmt(taxableIncomeWithoutBonus);
-                    document.getElementById("combinedTaxRate").textContent = combinedTaxRate + "%";
-                    document.getElementById("salaryBonusTax").textContent = fmt(optimalCombinedTax - originalSalaryTax);
-                    document.getElementById("salaryTaxableIncomeTable").textContent = fmt(taxableIncomeWithoutBonus);
-                    document.getElementById("totalTaxableIncome").textContent = fmt(optimalCombinedTaxableIncome);
-                    document.getElementById("salaryTax").textContent = fmt(originalSalaryTax);
-                    document.getElementById("bonusTotalTax").textContent = fmt(minBonusTax);
-                    
-                    document.getElementById("allBonusOnceTaxOnly").textContent = fmt(allBonusOnceTaxOnly);
-                    document.getElementById("savingCompareAllOnce").textContent = fmt(savingCompareAllOnce) + " 元";
-                    
-                    let rec = optimalBonus===0 
-                      ? "建议：全部奖金随工资提取最优"
-                      : optimalSalaryBonus===0
-                      ? `建议：全部奖金一次性提取最优`
-                      : `建议：${fmt(optimalBonus)}元一次性 + ${fmt(optimalSalaryBonus)}元随工资提取`;
-                    
-                    document.getElementById("recommendation").innerHTML = rec;
-                    document.getElementById("explanation").innerHTML = `
-                        最优方案奖金税：${fmt(minBonusTax)}元<br>
-                        全部一次性提取奖金税：${fmt(allBonusOnceTaxOnly)}元<br>
-                        仅奖金部分可节省：<span class='text-green-600 font-bold'>${fmt(savingCompareAllOnce)}</span> 元
-                    `;
-                    
-                    document.getElementById("result").classList.remove("hidden");
-                } catch(e) {
-                    console.error(e);
-                    alert("计算出错，请检查数据");
-                } finally {
-                    document.getElementById('calculateBtn').style.display = 'block';
-                    document.getElementById('loadingBtn').style.display = 'none';
+            const baseTaxable = salary + extrBonus - baseDed - special - add - other;
+            const baseTax = calculateIncomeTax(baseTaxable);
+            const testPoints = [0, totalBonus, ...CRITICAL_POINTS.filter(p => p >= 0 && p <= totalBonus)];
+
+            let bestBonus = 0, minTax = Infinity;
+            for(let b of testPoints) {
+                const salBonus = totalBonus - b;
+                const combTaxable = baseTaxable + salBonus;
+                const combTax = calculateIncomeTax(combTaxable);
+                const bonusTax = calculateBonusTaxSeparate(b);
+                const total = bonusTax + (combTax - baseTax);
+                if(total < minTax) { minTax = total; bestBonus = b; }
+            }
+
+            const bestSalBonus = totalBonus - bestBonus;
+            const combTaxableFinal = baseTaxable + bestSalBonus;
+            const combTaxFinal = calculateIncomeTax(combTaxableFinal);
+            const salBonusTax = combTaxFinal - baseTax;
+            const bonusTaxVal = calculateBonusTaxSeparate(bestBonus);
+            const allOnceTax = calculateBonusTaxSeparate(totalBonus);
+            const saving = allOnceTax - minTax;
+            const bonusP = getBonusTaxParam(bestBonus);
+            const combP = getIncomeTaxParam(combTaxableFinal);
+
+            // ====================== 你要的核心逻辑：只在 ≤10% 时提醒 ======================
+            const warningEl = getEl('combineCriticalWarning');
+            warningEl.classList.add('hidden');
+            const near = findNearestCombineBreakPoint(combTaxableFinal);
+            if(near && bestSalBonus > 0) {
+                const { point, exceed } = near;
+                const ratio = exceed / point;
+                if(ratio <= 0.1) { // 只在 超出 ≤ 10% 才提醒
+                    const pCur = getIncomeTaxParam(combTaxableFinal);
+                    const pNext = getIncomeTaxParam(point);
+                    const save = exceed * (pCur.r - pNext.r);
+                    getEl('combineWarnText').innerHTML = 
+                        `随工资提取后综合应纳税所得额为 <strong>${fmt(combTaxableFinal)}</strong> 元，<br>
+                        已超过最近临界点 <strong>${fmt(point)}</strong> 元，<br>
+                        超出比例在10%以内，超出金额：<strong>${fmt(exceed)}</strong> 元。<br>
+                        <span class="text-red-600 font-bold">⚠️ 如果将超出部分放到下一年度提取，预计可节税约 ${fmt(save)} 元。</span>`;
+                    warningEl.classList.remove('hidden');
                 }
-            }, 50);
+            }
+            // ===========================================================================
+
+            getEl('optimalBonus').textContent = fmt(bestBonus);
+            getEl('optimalSalaryBonus').textContent = fmt(bestSalBonus);
+            getEl('bonusTaxRate').textContent = (bonusP.r*100).toFixed(0)+'%';
+            getEl('bonusTaxDeduction').textContent = fmt(bonusP.d);
+            getEl('bonusTax').textContent = fmt(bonusTaxVal);
+            getEl('salaryTaxableIncome').textContent = fmt(baseTaxable);
+            getEl('combinedTaxRate').textContent = (combP.r*100).toFixed(0)+'%';
+            getEl('salaryBonusTax').textContent = fmt(salBonusTax);
+            getEl('salaryTaxableIncomeTable').textContent = fmt(baseTaxable);
+            getEl('totalTaxableIncome').textContent = fmt(combTaxableFinal);
+            getEl('salaryTax').textContent = fmt(baseTax);
+            getEl('bonusTotalTax').textContent = fmt(minTax);
+            getEl('allBonusOnceTaxOnly').textContent = fmt(allOnceTax);
+            getEl('savingCompareAllOnce').textContent = fmt(saving) + ' 元';
+
+            let rec = '';
+            if(bestBonus === 0) rec = '建议：全部奖金随工资提取最优';
+            else if(bestSalBonus === 0) rec = '建议：全部奖金一次性提取最优';
+            else rec = `建议：${fmt(bestBonus)} 元一次性 + ${fmt(bestSalBonus)} 元随工资提取`;
+            getEl('recommendation').innerHTML = rec;
+            getEl('explanation').innerHTML = `最优方案奖金税：${fmt(minTax)} 元<br>全部一次性提取奖金税：${fmt(allOnceTax)} 元<br>仅奖金部分可节省：<span class='text-green-600 font-bold'>${fmt(saving)}</span> 元`;
+
+            getEl('result').classList.remove('hidden');
+            calculateBtn.style.display = 'block';
+            loadingBtn.style.display = 'none';
         }
-        
-        function calculateBonusTaxSeparate(bonus) {
-            if(bonus<=0) return 0;
-            let r,d;
-            if(bonus<=36000)      {r=0.03;d=0;}
-            else if(bonus<=144000){r=0.1;d=210;}
-            else if(bonus<=300000){r=0.2;d=1410;}
-            else if(bonus<=420000){r=0.25;d=2660;}
-            else if(bonus<=660000){r=0.3;d=4410;}
-            else if(bonus<=960000){r=0.35;d=7160;}
-            else                  {r=0.45;d=15160;}
-            return bonus*r - d;
-        }
-        
-        function calculateIncomeTax(income) {
-            if(income<=0) return 0;
-            let r,d;
-            if(income<=36000)      {r=0.03;d=0;}
-            else if(income<=144000){r=0.1;d=2520;}
-            else if(income<=300000){r=0.2;d=16920;}
-            else if(income<=420000){r=0.25;d=31920;}
-            else if(income<=660000){r=0.3;d=52920;}
-            else if(income<=960000){r=0.35;d=85920;}
-            else                  {r=0.45;d=181920;}
-            return income*r - d;
-        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            ['salaryAllowance','extractedBonus','totalBonus'].forEach(id => {
+                getEl(id).addEventListener('input', updateTotalIncome);
+            });
+        });
     </script>
 </body>
 </html>
